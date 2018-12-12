@@ -18,7 +18,7 @@ class Authorization
     authorizer.get_authorization_url
   end
 
-  def store_token(code)
+  def store_credential(code)
     params = {
       user_id: @user_id,
       code: code,
@@ -27,6 +27,10 @@ class Authorization
     }
     
     authorizer.get_and_store_credentials_from_code(params)
+  end
+
+  def get_credential
+    authorizer.get_credentials(@user_id)
   end
 
 end
