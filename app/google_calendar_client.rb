@@ -20,7 +20,7 @@ class GoogleCalendarClient
   def list_events(params)
     events = @service.list_events('primary', params).items
     events.each do |e|
-      puts "#{e.id} #{e.location} #{e.summary} #{e.status}"
+      puts "#{e.id}\t#{e.summary}\t#{e.transparency}\t#{e.location}\t#{e.start.date_time.strftime('%Y-%m-%d %H:%M')}\t#{e.end.date_time.strftime('%Y-%m-%d %H:%M')}"
     end
   end
 
