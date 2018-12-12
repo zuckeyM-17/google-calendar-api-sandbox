@@ -19,11 +19,13 @@ class GoogleCalendarClient
 
   def list_events(params)
     events = @service.list_events('primary', params).items
-    events.each_with_index { |e, index| p "#{index} #{e.id} #{e.location} #{e.summary} #{e.status}" }
+    events.each do |e|
+      puts "#{e.id} #{e.location} #{e.summary} #{e.status}"
+    end
   end
 
   def insert_event(params)
     event = Google::Apis::CalendarV3::Event.new(params)
-    p @service.insert_event('primary', event)
+    puts @service.insert_event('primary', event)
   end
 end

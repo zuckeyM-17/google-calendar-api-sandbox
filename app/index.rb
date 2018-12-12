@@ -24,10 +24,10 @@ end
 
 case arguments[0]
   when 'url'
-    p auth.authorization_url
+    puts auth.authorization_url
   when 'store_token'
     auth.store_credential(arguments[1])
-    p "done!!\n"
+    puts "done!!\n"
   when 'events_today'
     client = GoogleCalendarClient.new(auth.get_credential)
     client.events_today
@@ -50,5 +50,5 @@ case arguments[0]
     client.insert_event(params)
   when 'help'
   else
-    p 'Command not found\n'
+    puts "Command not found\n"
 end
