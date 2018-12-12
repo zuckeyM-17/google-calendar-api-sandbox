@@ -7,9 +7,8 @@ require 'json'
 require 'pry'
 require 'optparse'
 require 'date'
-
-load Pathname.pwd.to_s + '/app/authorization.rb'
-load Pathname.pwd.to_s + '/app/google_calendar_client.rb'
+require_relative './authorization'
+require_relative './google_calendar_client'
 
 auth = Authorization.new
 
