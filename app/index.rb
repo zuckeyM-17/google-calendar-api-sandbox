@@ -36,7 +36,7 @@ case arguments[0]
 
     now = DateTime.now
     time_min = DateTime.new(now.year, now.month, now.mday, now.hour, now.minute, 0, "+0900")
-    time_max = time_min + Rational(10, 24 * 60 * 60)
+    time_max = time_min + 10r/24/60/60
 
     time_start = Google::Apis::CalendarV3::EventDateTime.new(date_time: time_min.rfc3339)
     time_end = Google::Apis::CalendarV3::EventDateTime.new(date_time: time_max.rfc3339)
