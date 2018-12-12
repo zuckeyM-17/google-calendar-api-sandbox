@@ -7,6 +7,7 @@ google-calendar-api-sandbox
 1. clone this repository
 2. get google calendar `client_id.json` and put it root of this repository 
     (if you have no project, you must create a project.)
+3. `bundle install --path=vendor/bundle`
 
 ## How To Use
 
