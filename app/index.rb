@@ -22,33 +22,53 @@ OptionParser.new do |o|
   end
 end
 
-case arguments[0]
-  when 'url'
-    puts auth.authorization_url
-  when 'store_token'
-    auth.store_credential(arguments[1])
-    puts "done!!\n"
-  when 'events_today'
-    client = GoogleCalendarClient.new(auth.get_credential)
-    client.events_today
-  when 'insert_event'
-    client = GoogleCalendarClient.new(auth.get_credential)
+begin
 
-    now = DateTime.now
-    time_min = DateTime.new(now.year, now.month, now.mday, now.hour, now.minute, 0, "+0900")
-    time_max = time_min + 10r/24/60/60
+  case arguments[0]
+    when 'url'
+      puts auth.authorization_url
+    when 'store_token'
+      auth.store_credential(arguments[1])
+      puts "done!!\n"
+    when 'events_today'
+      client = GoogleCalendarClient.new(auth.get_credential)
+      client.events_today
+    when 'insert_event'
+      client = GoogleCalendarClient.new(auth.get_credential)
 
-    time_start = Google::Apis::CalendarV3::EventDateTime.new(date_time: time_min.rfc3339)
-    time_end = Google::Apis::CalendarV3::EventDateTime.new(date_time: time_max.rfc3339)
-    summary = 'テストです'
-    params = {
-      start: time_start,
-      end: time_end,
-      summary: summary,
-    }
+      now = DateTime.now
+      time_min = DateTime.new(now.year, now.month, now.mday, now.hour, now.minute, 0, "+0900")
+      time_max = time_min + 10r/24/60/60
 
-    client.insert_event(params)
-  when 'help'
-  else
-    puts "Command not found\n"
+      time_start = Google::Apis::CalendarV3::EventDateTime.new(date_time: time_min.rfc3339)
+      time_end = Google::Apis::CalendarV3::EventDateTime.new(date_time: time_max.rfc3339)
+      summary = 'テストです'
+      params = {
+        start: time_start,
+        end: time_end,
+        summary: summary,
+      }
+
+      client.insert_event(params)
+    when 'help'
+    else
+      puts "Command not found\n"
+  end
+
+rescue Google::Apis::ServerError => e
+  puts e.message
+rescue Google::Apis::ClientError => e
+  puts e.message
+rescue Google::Apis::AuthorizationError => e
+  puts 'authorization error, please try below'
+  puts <<~TEXT
+    $ ruby app/index.rb url
+    # You can get URL for OAuth2 
+    # Open this URL in your brouser and get authorization
+    # Then you can get the code
+    
+    $ CODE=`$CODE`
+    $ ruby app/index.rb store_token CODE 
+    # `token_store` file will be created.
+  TEXT
 end

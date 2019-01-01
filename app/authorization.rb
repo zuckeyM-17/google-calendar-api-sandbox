@@ -30,7 +30,13 @@ class Authorization
   end
 
   def get_credential
-    authorizer.get_credentials(@user_id)
+    begin
+      authorizer.get_credentials(@user_id)
+    rescue StandardError => e
+      puts '[Google::AuthorizerService] failed to get credentials'
+      puts e.message
+    end
+
   end
 
 end

@@ -14,20 +14,20 @@ google-calendar-api-sandbox
 ```shell
 $ cd (path)/google-calendar-api-sandbox
 
-$ ruby /app/index.rb url
+$ ruby app/index.rb url
 # You can get URL for OAuth2 
 # Open this URL in your brouser and get authorization
 # Then you can get the code
 
 $ CODE=`$CODE`
-$ ruby /app/index.rb store_token CODE 
+$ ruby app/index.rb store_token CODE 
 # `token_store` file will be created.
 
 # list events of today
-$ ruby /app/index.rb events_today
+$ ruby app/index.rb events_today
 
 # insert_event
-$ ruby /app/index.rb insert_event
+$ ruby app/index.rb insert_event
 
 ```
 
